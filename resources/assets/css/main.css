@@ -1,0 +1,28 @@
+.carousel-inner > .item {
+    /*width: 80%;*/
+    margin: 0 auto;
+}
+
+.carousel-inner .list-group-item,
+.carousel-inner .list-group-item:focus,
+.carousel-inner .list-group-item.active:hover {
+    text-shadow: none;
+    border: none;
+}
+
+.carousel-inner .list-group-item.active,
+.carousel-inner .list-group-item.active:focus,
+.carousel-inner .list-group-item.active:hover {
+    color: #333;
+    background: transparent;
+}
+
+.carousel-control.left,
+.carousel-control.right {
+
+}
+
+.carousel-inner.list-group {
+    box-shadow: none;
+    border: none;
+}

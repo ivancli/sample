@@ -1,0 +1,495 @@
+/* Start Styles - Side Menu */
+.panel {
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -o-transition: 0.2s;
+    transition: 0.2s;
+    transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    height: 100%;
+    width: 390px;
+}
+
+.panel ul li,
+.panel ul a {
+    display: inline-block;
+    width: 100%;
+    line-height: 1.4;
+    font-weight: 200;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.panel ul li.menu-label {
+    font-size: 1.2em;
+    margin: 30px 0 10px 0;
+    text-transform: uppercase;
+}
+
+.panel ul li.menu-label:first-child {
+    margin-top: 0;
+}
+
+.panel ul a {
+    text-transform: uppercase;
+}
+
+.panel ul li.menu-contacts a {
+    font-size: 16px;
+    text-transform: inherit;
+}
+
+/* Panel */
+.panel-overlay {
+    position: fixed;
+    top: 0;
+    z-index: 9998;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.35);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0.05)), color-stop(100%, rgba(0, 0, 0, 0.6)));
+    cursor: pointer;
+}
+
+
+/* overlay */
+
+.panel-white {
+    background-color: #ffffff;
+}
+
+.panel-white ul li,
+.panel-white ul a {
+    color: #8e8e93;
+}
+
+.panel-white ul li a:hover,
+.panel-white ul li.active a {
+    color: #007aff;
+}
+
+.panel-white .ninja-btn {
+    background-color: #ffffff;
+}
+
+.panel-white .ninja-btn span,
+.panel-white .ninja-btn span:before,
+.panel-white .ninja-btn span:after {
+    background-color: #007aff;
+}
+
+
+/* panel white */
+.panel-black {
+    background-color: #000000;
+}
+
+.panel-black ul {
+    /* li */
+}
+
+.panel-black ul li,
+.panel-black ul a {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.panel-black ul li a:hover,
+.panel-black ul li.active a {
+    color: #ffffff;
+}
+
+.ninja-btn span,
+.ninja-btn span:before,
+.ninja-btn span:after {
+    background-color: #007aff;
+}
+
+/* panel black */
+.panel-brand {
+    background-color: #007aff;
+}
+
+.panel-brand ul li,
+.panel-brand ul a {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.panel-brand ul li a:hover,
+.panel-brand ul li.active a {
+    color: #ffffff;
+}
+
+.panel-brand .ninja-btn {
+    background-color: #007aff;
+}
+
+.panel-brand .ninja-btn span,
+.panel-brand .ninja-btn span:before,
+.panel-brand .ninja-btn span:after {
+    background-color: #ffffff;
+}
+
+.nav-open .ninja-btn {
+    right: 100%;
+    right: -90px;
+}
+
+/* Panel Menu Active */
+.panel.right {
+    right: -450px;
+}
+
+.navbar-items {
+    height: 100vh;
+    text-align: left;
+    padding: 10px;
+}
+
+.navbar-items li {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.navbar-items li a {
+    padding: 20px 0;
+}
+
+.navbar-items li a:hover {
+    text-decoration: none;
+}
+
+.navbar-items li.menu-label,
+.navbar-items li.html-block {
+    border-bottom: none;
+}
+
+.ninja-btn.right {
+    right: 400px;
+    float: right;
+}
+
+/* Panel Right Active */
+.panel.right.active {
+    right: 0;
+}
+
+.ninja-btn {
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -o-transition: 0.2s;
+    transition: 0.2s;
+    transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    display: inline-block;
+
+    cursor: pointer;
+    padding: 34.28571429px 30px;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    width: 30px;
+    height: 20.18181818px;
+}
+
+.ninja-btn span,
+.ninja-btn span:before,
+.ninja-btn span:after {
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    width: 30px;
+    height: 2px;
+}
+
+.ninja-btn span {
+    position: relative;
+    display: inline-block;
+    float: left;
+    margin-top: 9.09090909px;
+}
+
+.ninja-btn span:before,
+.ninja-btn span:after {
+    content: "";
+    position: absolute;
+    left: 0;
+}
+
+.ninja-btn span:before {
+    top: -9.09090909px;
+}
+
+.ninja-btn span:after {
+    top: 9.09090909px;
+}
+
+.ninja-btn.active span {
+    background-color: transparent;
+}
+
+.ninja-btn.active span:before,
+.ninja-btn.active span:after {
+    top: 0;
+}
+
+.ninja-btn.active span:before {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    -moz-transform: rotate(-135deg);
+    -o-transform: rotate(-135deg);
+    -ms-transform: rotate(-135deg);
+}
+
+.ninja-btn.active span:after {
+    -webkit-transition-delay: 0.09s;
+    -moz-transition-delay: 0.09s;
+    -o-transition-delay: 0.09s;
+    -msa-transition-delay: 0.09s;
+    transition-delay: 0.09s;
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    -moz-transform: rotate(135deg);
+    -o-transform: rotate(135deg);
+    -ms-transform: rotate(135deg);
+}
+
+.navbar-items .social-icons .icon {
+    justify-content: flex-start;
+    width: 45px;
+}
+
+.icon-facebook:before {
+    content: "\e002" !important;
+}
+
+.icon-instagram:before {
+    content: "\e00e" !important;
+}
+
+.social-icons .icon.icon-facebook-link:hover {
+    background-color: #3a589d;
+    border-color: #3a589d;
+}
+
+.social-icons .icon.icon-instagram-link:hover {
+    background-color: #3b6994;
+    border-color: #3b6994;
+}
+
+/* ----------- iPhone 6+ ----------- */
+/* Portrait and Landscape */
+@media only screen
+and (min-device-width: 414px)
+and (max-device-width: 736px)
+and (-webkit-min-device-pixel-ratio: 3) {
+    .ninja-btn.right {
+        right: 25px;
+    }
+
+    .nav-open .panel.right.active {
+        right: -100px;
+    }
+
+    .nav-open .ninja-btn.active {
+        right: 300px;
+    }
+}
+
+/* ----------- iPhone 6 ----------- */
+/* Portrait and Landscape */
+@media only screen
+and (min-device-width: 375px)
+and (max-device-width: 667px)
+and (-webkit-min-device-pixel-ratio: 2) {
+    .ninja-btn.right {
+        right: 25px;
+    }
+
+    .nav-open .panel.right.active {
+        right: -140px;
+    }
+
+    .nav-open .ninja-btn.active {
+        right: 260px;
+    }
+}
+
+/* ----------- iPhone 5 and 5S ----------- */
+/* Portrait and Landscape */
+@media only screen
+and (min-device-width: 320px)
+and (max-device-width: 568px)
+and (-webkit-min-device-pixel-ratio: 2) {
+    .ninja-btn.right {
+        right: 25px;
+    }
+
+    .nav-open .panel.right.active {
+        right: -180px;
+    }
+
+    .nav-open .ninja-btn.active {
+        right: 215px;
+    }
+}
+
+/* Panel Menu Active */
+/* ----------- iPhone 4 and 4S ----------- */
+/* Portrait and Landscape */
+@media only screen
+and (min-device-width: 320px)
+and (max-device-width: 480px)
+and (-webkit-min-device-pixel-ratio: 2) {
+    .ninja-btn.right {
+
+    }
+
+    .nav-open .panel.right.active {
+        right: -180px;
+    }
+
+    .nav-open .ninja-btn.active {
+        right: 220px;
+    }
+}
+
+/* ----------- iPad pro ----------- */
+/* Portrait and Landscape */
+/* Portrait */
+@media only screen
+and (min-device-width: 1024px)
+and (max-device-width: 1366px)
+and (orientation: portrait) {
+    .ninja-btn.right {
+        right: 50px;
+    }
+
+    .nav-open .panel.right.active {
+        right: -90px;
+    }
+
+    .nav-open .ninja-btn.active {
+        right: 310px;
+    }
+}
+
+/* Landscape */
+@media only screen
+and (min-device-width: 1024px)
+and (max-device-width: 1366px)
+and (orientation: landscape) {
+    .ninja-btn.right {
+        right: 120px;
+    }
+
+    .nav-open .panel.right.active {
+        right: -90px;
+    }
+
+    .nav-open .ninja-btn.active {
+        right: 310px;
+    }
+}
+
+/* ----------- iPad 1 and 2 ----------- */
+/* ----------- iPad 3 and 4 ----------- */
+/* Portrait and Landscape */
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px)
+and (orientation:portrait) {
+    .ninja-btn.right {
+        right: 50px;
+    }
+}
+
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px)
+and (orientation:landscape) {
+    .ninja-btn.right {
+        right: 50px;
+    }
+
+    .nav-open .panel.right.active {
+        right: -90px;
+    }
+
+    .nav-open .ninja-btn.active {
+        right: 310px;
+    }
+}
+
+/* ----------- iPad mini ----------- */
+
+/* Portrait and Landscape */
+/* Portrait */
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px)
+and (orientation: portrait) {
+    .ninja-btn.right {
+        right: 35px;
+    }
+
+    .nav-open .panel.right.active {
+        right: -120px;
+    }
+
+    .nav-open .ninja-btn.active {
+        right: 280px;
+    }
+}
+
+/* Landscape */
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px)
+and (orientation: landscape) {
+    .nav-open .panel.right.active {
+
+    }
+
+    .nav-open .ninja-btn.active {
+
+    }
+}
+
+/* ----------- Galaxy S3 ----------- */
+/* ----------- Galaxy S4 ----------- */
+/* ----------- Galaxy S5 ----------- */
+/* Portrait and Landscape */
+@media screen
+and (device-width: 320px)
+and (device-height: 640px)
+and (-webkit-device-pixel-ratio: 2) {
+
+    .nav-open .panel.right.active {
+
+    }
+
+    .nav-open .ninja-btn.active {
+
+    }
+}
+
+@media (min-width: 768px) {
+}
+@media (max-width: 768px) {
+}

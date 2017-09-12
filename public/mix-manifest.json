@@ -1,0 +1,10 @@
+{
+    "/js/vendors.js": "/js/vendors.js",
+    "/js/concierge.js": "/js/concierge.js",
+    "/js/main.js": "/js/main.js",
+    "/css/vendors.css": "/css/vendors.css",
+    "/css/concierge.css": "/css/concierge.css",
+    "/css/main.css": "/css/main.css",
+    "/css/belrose.css": "/css/belrose.css",
+    "/js/jquery.mask.js": "/js/jquery.mask.js"
+}

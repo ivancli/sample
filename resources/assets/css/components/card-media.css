@@ -1,0 +1,16 @@
+.media-card {
+    display: flex;
+}
+.c-media-card {
+    justify-content: center;
+}
+.card-horizontal {
+    flex-direction: row;
+}
+
+.media-card .media-icon {
+    padding: 10px;
+}
+.media-card .media-content {
+    padding: 4px;
+}

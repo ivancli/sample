@@ -1,0 +1,9 @@
+.jumbotron-heading h1 {
+    color: #002939;
+    font-size: 3em;
+    font-weight: 600;
+    border-top: 2px solid #002939;
+    border-bottom: 2px solid #002939;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
