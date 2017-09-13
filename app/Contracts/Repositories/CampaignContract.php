@@ -18,7 +18,7 @@ abstract class CampaignContract extends StandardSprookiConnector
     const DEVICE_TYPE = 'WEB';
     const REQUEST = 'GetCampaigns';
 
-    public function params($params)
+    public function params($request, $params)
     {
         $time = date('Y-m-d H:i:s');
         $this->headers = [

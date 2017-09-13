@@ -161,4 +161,9 @@ class RegisterController extends Controller
         }
         return false;
     }
+
+    public function showRegistrationAcknowledge()
+    {
+        return view('auth.register_acknowledge');
+    }
 }

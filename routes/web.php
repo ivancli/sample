@@ -158,6 +158,12 @@ Route::group([
         'uses' => 'Auth\RegisterController@register'
     ]);
 
+    Route::get('registration/acknowledge', [
+        'middleware' => ['guest'],
+        'as' => 'auth.registration-acknowledge',
+        'uses' => 'Auth\RegisterController@showRegistrationAcknowledge'
+    ]);
+
 
     // Password Reset Routes...
     // auth/password/reset/{token}

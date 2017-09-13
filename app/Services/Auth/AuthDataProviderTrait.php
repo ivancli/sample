@@ -40,6 +40,8 @@ trait AuthDataProviderTrait
             $saveData = array_set($saveData, snake_case($attribute), $value);
         }
 
+        array_set($saveData, 'enduserid', $user->id);
+
         if ($user !== null) {
             return new User($saveData);
         }

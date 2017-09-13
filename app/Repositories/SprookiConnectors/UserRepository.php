@@ -51,6 +51,7 @@ class UserRepository extends UserContract
 
         if (array_has($data, 'password')) {
             $password = array_get($data, 'password');
+            /*TODO enable the following line of code before pushing to live*/
 //            array_set($data, 'password', aes_128_encrypt($password, $this->getPrivateKey()));
             array_set($data, 'password', "wGlnv9/s/aEFSbNXTIaANA==");
         }
@@ -82,6 +83,7 @@ class UserRepository extends UserContract
 
         if (array_has($credentials, 'password')) {
             $password = array_get($credentials, 'password');
+            /*TODO enable the following line of code before pushing to live*/
 //            array_set($data, 'password', aes_128_encrypt($password, $this->getPrivateKey()));
             array_set($credentials, 'password', "wGlnv9/s/aEFSbNXTIaANA==");
         }
@@ -120,11 +122,20 @@ class UserRepository extends UserContract
 
     /**
      * send reset password email
+     * @param array $data
      * @return mixed
      */
-    public function forgotPassword()
+    public function forgotPassword(array $data)
     {
-        // TODO: Implement forgotPassword() method.
+        $params = [
+            'useremail' => array_get($data, 'email'),
+            'deviceid' => array_get($data, 'email'),
+            'accounttype' => 'EMAIL',
+        ];
+        $this->config();
+        $this->params('ForgotPassword', $params);
+        $result = $this->call();
+        dd($result);
     }
 
     /**

@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
+use App\Contracts\Repositories\UserContract as SprookiUserContract;
+use Illuminate\Http\Request;
+
 class ForgotPasswordController extends Controller
 {
     /*
@@ -20,13 +23,22 @@ class ForgotPasswordController extends Controller
 
     use SendsPasswordResetEmails;
 
+    protected $userRepo;
+
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * @param SprookiUserContract $userContract
      */
-    public function __construct()
+    public function __construct(SprookiUserContract $userContract)
     {
         $this->middleware('guest');
+
+        $this->userRepo = $userContract;
+    }
+
+    public function sendResetLinkEmail(Request $request)
+    {
+        $this->userRepo->forgotPassword($request->all());
     }
 }

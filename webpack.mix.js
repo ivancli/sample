@@ -51,3 +51,4 @@ mix.js([
 mix.copy('resources/assets/js/jquery.mask.js', 'public/js/jquery.mask.js');
 
 mix.copyDirectory('resources/assets/fonts', 'public/fonts');
+mix.copyDirectory('resources/assets/images', 'public/images');

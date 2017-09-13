@@ -99,9 +99,10 @@ abstract class UserContract extends StandardSprookiConnector
 
     /**
      * send reset password email
+     * @param array $data
      * @return mixed
      */
-    abstract public function forgotPassword();
+    abstract public function forgotPassword(array $data);
 
     /**
      * update password
