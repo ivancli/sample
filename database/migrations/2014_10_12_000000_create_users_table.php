@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('dob')->nullable();
             $table->string('phone_no')->nullable();
             $table->string('postcode')->nullable();
-            $table->string('session_token')->nullable();
+            $table->string('sessid')->nullable();
             $table->timestamps();
         });
     }

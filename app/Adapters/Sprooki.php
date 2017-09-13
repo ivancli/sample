@@ -87,14 +87,27 @@ class Sprooki implements RequestAdapterInterface
         $response = $this
             ->initialize($configs)
             ->call('SignIn', $params);
-
-        if(isset($response->result) && $response->result == 'NOK') {
+        if (isset($response->result) && $response->result == 'NOK') {
             throw new RequestException($response->error->message, $response->error->code);
         }
-
         $this->checkValidUserData($response);
 
         return $this->getUserData($response);
+    }
+
+    public function signOut(array $params, array $configs)
+    {
+        if (array_has($params, 'sessid')) {
+            $this->sessid = array_get($params, 'sessid');
+        }
+        $response = $this
+            ->initialize($configs)
+            ->call('SignOut', $params);
+        if (isset($response->result) && $response->result == 'NOK') {
+            throw new RequestException($response->error->message, $response->error->code);
+        }
+
+        return true;
     }
 
     /**
@@ -109,11 +122,11 @@ class Sprooki implements RequestAdapterInterface
             ->initialize($configs)
             ->call('CreateUser', $params);
 
-        if(isset($response->result) && $response->result == 'NOK') {
+        if (isset($response->result) && $response->result == 'NOK') {
             throw new RequestException($response->error->message, $response->error->code);
         }
 
-        if(!isset($response->data)){
+        if (!isset($response->data)) {
             throw new RequestException('Sprooki user data missing', 500);
         }
 
@@ -136,8 +149,8 @@ class Sprooki implements RequestAdapterInterface
 
         // when session id present, set session id
         foreach (self::$userProperties as $property) {
-            if(array_key_exists($property, $properties)) {
-                $this->{$property} =  $properties[$property];
+            if (array_key_exists($property, $properties)) {
+                $this->{$property} = $properties[$property];
             }
         }
         return $this;
@@ -149,11 +162,11 @@ class Sprooki implements RequestAdapterInterface
      */
     protected function checkValidUserData($response)
     {
-        if(!isset($response->data)){
+        if (!isset($response->data)) {
             throw new RequestException('Sprooki user data missing', 500);
         }
 
-        if(!isset($response->sessid)){
+        if (!isset($response->sessid)) {
             throw new RequestException('Sprooki user session id missing', 500);
         }
     }
@@ -168,5 +181,74 @@ class Sprooki implements RequestAdapterInterface
         $data->sessid = isset($response->sessid) ? $response->sessid : '';
 
         return $data;
+    }
+
+
+    /**
+     * @param array $params
+     * @param array $configs
+     * @return null
+     * @throws RequestException
+     */
+    public function getActiveCampaigns(array $params, array $configs)
+    {
+        if (array_has($params, 'sessid')) {
+            $this->sessid = array_get($params, 'sessid');
+        }
+        $response = $this
+            ->initialize($configs)
+            ->call('GetActiveCampaigns', $params);
+
+        if (isset($response->result) && $response->result == 'NOK') {
+            throw new RequestException('Request unavailable for active campaigns.', 503);
+        }
+
+        return isset($response->data) ? $response->data : null;
+    }
+
+
+    /**
+     * @param array $params
+     * @param array $configs
+     * @return null
+     * @throws RequestException
+     */
+    public function getCategories(array $params, array $configs)
+    {
+        if (array_has($params, 'sessid')) {
+            $this->sessid = array_get($params, 'sessid');
+        }
+        $response = $this
+            ->initialize($configs)
+            ->call('GetCategories', $params);
+
+        if(isset($response->result) && $response->result == 'NOK') {
+            throw new RequestException($response->error->message, $response->error->code);
+        }
+
+        return isset($response->data) ? $response->data : null;
+    }
+
+    /**
+     * @param array $params
+     * @param array $configs
+     * @return null
+     * @throws RequestException
+     */
+    public function getLocations(array $params, array $configs)
+    {
+        $response = $this
+            ->initialize($configs)
+            ->call('GetLocations', $params);
+
+        if(isset($response->result) && $response->result == 'NOK') {
+            throw new RequestException($response->error->message, $response->error->code);
+        }
+
+        if(!isset($response->data->locationList)){
+            throw new RequestException('Location list is not available for the request.', 500);
+        }
+
+        return isset($response->data) ? $response->data : null;
     }
 }

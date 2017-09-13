@@ -10,6 +10,7 @@ namespace App\Listeners\Auth;
 
 
 use App\Contracts\Models\UserContract;
+use Illuminate\Auth\Events\Authenticated;
 
 class LoginEventSubscriber
 {
@@ -23,19 +24,15 @@ class LoginEventSubscriber
     public function onLogin($event)
     {
         $user = $event->user;
-        if (isset($user->email) && !is_null($user->email)) {
-            $existingUser = $this->userRepo->getByEmail($user->email);
-            $keys = $user->getFillable();
-            $userData = array_only($user->toArray(), $keys);
-            if (!is_null($existingUser)) {
-                $user = $this->userRepo->update($existingUser, $userData);
-            }
-        }
+
+        session()->put('sprooki_sessid', $user->sessid);
+        session()->put('sprooki_deviceid', $user->email);
+        session()->put('sprooki_devicetype', 'WEB');
     }
 
 
     public function subscribe($events)
     {
-        $events->listen(\App\Events\Sprooki\Authenticated::class, 'App\Listeners\Auth\LoginEventSubscriber@onLogin');
+        $events->listen(Authenticated::class, 'App\Listeners\Auth\LoginEventSubscriber@onLogin');
     }
 }

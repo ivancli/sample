@@ -158,26 +158,33 @@ Route::group([
         'uses' => 'Auth\RegisterController@register'
     ]);
 
+
     // Password Reset Routes...
     // auth/password/reset/{token}
     // Forgot password, Password reset
+    Route::get('password/email', [
+        'middleware' => ['guest'],
+        'as' => 'auth.password.forgot.email',
+        'uses' => 'Auth\ForgotPasswordController@showLinkRequestForm'
+    ]);
+
     Route::get('password/reset/{token?}', [
         'middleware' => [],
         'as' => 'auth.password.forgot',
-        'uses' => 'Auth\ForgotPasswordController@showLinkRequestForm'
+        'uses' => 'Auth\ResetPasswordController@showResetForm'
     ]);
 
     // auth/password/email
     Route::post('password/email', [
         'middleware' => ['guest'],
         'as' => 'auth.password.reset.email',
-        'uses' => 'Auth\ResetPasswordController@sendResetLinkEmail'
+        'uses' => 'Auth\ForgotPasswordController@sendResetLinkEmail'
     ]);
 
     // auth/password/reset/
     Route::post('password/reset', [
         'middleware' => ['guest'],
         'as' => 'auth.password.reset',
-        'uses' => 'PasswordController@reset'
+        'uses' => 'Auth\ResetPasswordController@reset'
     ]);
 });

@@ -10,6 +10,7 @@ namespace App\Listeners\Auth;
 
 
 use App\Contracts\Models\UserContract;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterEventSubscriber
 {
@@ -24,16 +25,13 @@ class RegisterEventSubscriber
     {
         $user = $event->user;
 
-        if (isset($user->email) && !is_null($user->email)) {
-            $existingUser = $this->userRepo->getByEmail($user->email);
-            if (is_null($user)) {
-                $user = $this->userRepo->store((array)$user);
-            }
-        }
+        session()->put('sprooki_sessid', $user->sessid);
+        session()->put('sprooki_deviceid', $user->email);
+        session()->put('sprooki_devicetype', 'WEB');
     }
 
     public function subscribe($events)
     {
-        $events->listen(\App\Events\Sprooki\Registered::class, 'App\Listeners\Auth\RegisterEventSubscriber@onRegistered');
+        $events->listen(Registered::class, 'App\Listeners\Auth\RegisterEventSubscriber@onRegistered');
     }
 }

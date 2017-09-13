@@ -58,6 +58,11 @@
                                         placeholder="Enter your first name"
                                 >
                                 <label for="given_name">Your first name</label>
+                                @if ($errors->has('given_name'))
+                                    <span class="help-block">
+                                    <strong>{{ $errors->first('given_name') }}</strong>
+                                </span>
+                                @endif
                                 {{--@if ($errors->has('givenname'))--}}
                                     {{--<span class="help-block has-error">--}}
                                         {{--<span>{{ $errors->first('givenname') }}</span>--}}
@@ -80,6 +85,11 @@
                                         placeholder="Your last name"
                                 >
                                 <label for="family_name">Your last name</label>
+                                @if ($errors->has('family_name'))
+                                    <span class="help-block">
+                                    <strong>{{ $errors->first('family_name') }}</strong>
+                                </span>
+                                @endif
                                 {{--@if ($errors->has('familyname'))--}}
                                     {{--<span class="help-block has-error">--}}
                                         {{--<span>{{ $errors->first('familyname') }}</span>--}}
@@ -101,6 +111,12 @@
                                         value="{{ old('email') }}"
                                         placeholder="Your email address"
                                 >
+                                <label for="email">Your email address</label>
+                                @if ($errors->has('email'))
+                                    <span class="help-block">
+                                    <strong>{{ $errors->first('email') }}</strong>
+                                </span>
+                                @endif
                                 {{--@if ($errors->has('email'))--}}
                                     {{--<span class="help-block has-error">--}}
                                         {{--<span>{{ $errors->first('email') }}</span>--}}
@@ -222,6 +238,11 @@
                                         placeholder="Your password"
                                 >
                                 <label for="password">Your password</label>
+                                @if ($errors->has('password'))
+                                    <span class="help-block">
+                                    <strong>{{ $errors->first('password') }}</strong>
+                                </span>
+                                @endif
                                 {{--@if ($errors->has('password'))--}}
                                     {{--<span class="help-block has-error">--}}
                                         {{--<span>{{ $errors->first('password') }}</span>--}}

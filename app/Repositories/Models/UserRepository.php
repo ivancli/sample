@@ -6,9 +6,10 @@
  * Time: 3:58 PM
  */
 
-namespace App\Contracts\Models;
+namespace App\Repositories\Models;
 
 
+use App\Contracts\Models\UserContract;
 use App\Models\User;
 
 class UserRepository implements UserContract

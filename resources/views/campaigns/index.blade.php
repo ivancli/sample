@@ -32,33 +32,33 @@
         </div>
     </div>
 
-
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="item media-item sm-media-item">
-                <div class="media fx fx-cc-items">
-                    <img
-                            class="img-cover img-tl"
-                            src="http://devinvigor.sprookimanagerx.com/images//invigor/ext-images/Campaign4525_1.png"
-                            alt="New FREE Reg. Coffee TODAY with ANY purchase"
-                    >
-                </div>
-                <div class="details pad-sm fx">
-                    <div class="title">
-                        7-ELEVEN
+    @foreach($campaigns as $campaign)
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="item media-item sm-media-item">
+                    <div class="media fx fx-cc-items">
+                        @if(!is_null(array_first($campaign->images)))
+                            <img class="img-cover img-tl" src="{!! array_first($campaign->images) !!}" alt="{{$campaign->description}}">
+                        @else
+                        @endif
                     </div>
-                    <div class="description">
-                        NEW FREE REG. COFFEE TODAY WITH ANY PURCHASE
+                    <div class="details pad-sm fx">
+                        <div class="title">
+                            {{ $campaign->name }}
+                        </div>
+                        <div class="description">
+                            {{ $campaign->description }}
+                        </div>
                     </div>
-                </div>
-                <div class="actions pad-sm fx fx-cr-items">
+                    <div class="actions pad-sm fx fx-cr-items">
                     <span class="arrow">
                         <i class="fa fa-chevron-circle-right color-primary fa-2x" aria-hidden="true"></i>
                     </span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endforeach
 @endsection
 
 @section('scripts')
