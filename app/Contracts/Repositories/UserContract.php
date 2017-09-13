@@ -53,13 +53,9 @@ abstract class UserContract extends StandardSprookiConnector
         if ($this->sessid != null) {
             $curlParams['sessid'] = $this->sessid;
         }
-        // Open connection
-        $ch = curl_init();
 
         $this->params = json_encode($curlParams, JSON_FORCE_OBJECT);
         $this->headers = $headers;
-
-
     }
 
     public function call()

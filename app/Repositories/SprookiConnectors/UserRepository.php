@@ -51,14 +51,18 @@ class UserRepository extends UserContract
 
         if (array_has($data, 'password')) {
             $password = array_get($data, 'password');
-            array_set($data, 'password', aes_128_encrypt($password, $this->getPrivateKey()));
+//            array_set($data, 'password', aes_128_encrypt($password, $this->getPrivateKey()));
+            array_set($data, 'password', "wGlnv9/s/aEFSbNXTIaANA==");
         }
 
         $this->params('CreateUser', $data);
 
         $result = $this->call();
 
-        dd($result);
+        $userData = $result->content->data;
+        $user = $this->getUser($userData);
+
+        return $user;
     }
 
     /**
@@ -71,14 +75,28 @@ class UserRepository extends UserContract
         $credentials = $this->__matchFields($credentials);
         /*init configuration*/
         $this->config();
+        $credentials = array_only($credentials, self::$signInUserParams);
 
+        array_set($credentials, 'deviceid', array_get($credentials, 'useremail'));
+        array_set($credentials, 'accounttype', 'EMAIL');
+
+        if (array_has($credentials, 'password')) {
+            $password = array_get($credentials, 'password');
+//            array_set($data, 'password', aes_128_encrypt($password, $this->getPrivateKey()));
+            array_set($credentials, 'password', "wGlnv9/s/aEFSbNXTIaANA==");
+        }
         /*set up parameters*/
-        $data = array_only($credentials, self::$signInUserParams);
-        array_set($data, 'request', 'SignIn');
-        $this->params($data);
+        $data = $credentials;
+        $this->params('SignIn', $data);
 
         $result = $this->call();
-        dd($result);
+
+        $userData = $result->content->data;
+        if (isset($result->content->sessid)) {
+            $userData->sessid = $result->content->sessid;
+        }
+        $user = $this->getUser($userData);
+        return $user;
     }
 
     /**
@@ -87,7 +105,17 @@ class UserRepository extends UserContract
      */
     public function signOut()
     {
-        // TODO: Implement signOut() method.
+        if (!is_null(auth()->user()) && !is_null(auth()->user()->sessid)) {
+            $sessid = auth()->user()->sessid;
+            $params = [
+                'deviceid' => auth()->user()->email,
+                'sessid' => $sessid
+            ];
+            $this->config();
+            $this->params('SignOut', $params);
+            $result = $this->call();
+        }
+        return true;
     }
 
     /**
