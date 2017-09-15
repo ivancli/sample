@@ -32,15 +32,19 @@
         </div>
     </div>
 
+
+    <div class="row">
+        <div class="col-xs-12 no-gutter small text-center">
+            @include('partials.alerts', [
+                'alerts' => $errors,
+                'class' => 'fade-alert1'
+            ])
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
-
-            <form
-                    class="form-horizontal"
-                    role="form"
-                    method="POST"
-                    action="{{route('auth.post-registration')}}"
-            >
+            <form class="form-horizontal" role="form" method="POST" action="{{route('account.profile.update')}}">
                 {{ csrf_field() }}
                 <fieldset>
                     <ul class="list-unstyled">
@@ -51,16 +55,16 @@
                                 </span>
                                 <input
                                         class="form-control input-x1s"
-                                        id="givenname"
+                                        id="given_name"
                                         type="text"
-                                        name="givenname"
-                                        value=""
+                                        name="given_name"
+                                        value="{{$user->given_name}}"
                                         placeholder="Enter your first name"
                                 >
-                                <label for="givenname">Your first name</label>
-                                @if ($errors->has('givenname'))
+                                <label for="given_name">Your first name</label>
+                                @if ($errors->has('given_name'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('givenname') }}</strong>
+                                        <strong>{{ $errors->first('given_name') }}</strong>
                                     </span>
                                 @endif
 
@@ -73,16 +77,16 @@
                                 </span>
                                 <input
                                         class="form-control input-x1s"
-                                        id="familyname"
+                                        id="family_name"
                                         type="text"
-                                        name="familyname"
-                                        value=""
+                                        name="family_name"
+                                        value="{{$user->family_name}}"
                                         placeholder="Your last name"
                                 >
-                                <label for="familyname">Your last name</label>
-                                @if ($errors->has('familyname'))
+                                <label for="family_name">Your last name</label>
+                                @if ($errors->has('family_name'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('familyname') }}</strong>
+                                        <strong>{{ $errors->first('family_name') }}</strong>
                                     </span>
                                 @endif
 
@@ -98,7 +102,7 @@
                                         id="email"
                                         type="email"
                                         name="email"
-                                        value=""
+                                        value="{{$user->email}}"
                                         placeholder="Your email address"
                                         disabled="disabled"
                                 >
@@ -120,19 +124,39 @@
                                         data-size="5"
                                         title="Choose Gender"
                                         id="gender"
-                                        name="gender"
-                                >
-                                    <option
-                                            value="MALE"
-                                    >Male</option>
-                                    <option
-                                            value="FEMALE"
-                                    >Female</option>
+                                        name="gender">
+                                    <option value="MALE" {{$user->gender == 'MALE' ? 'selected' : ''}}>Male</option>
+                                    <option value="FEMALE" {{$user->gender == 'FEMALE' ? 'selected' : ''}}>Female</option>
                                 </select>
-                                <label for="gender">Your gender</label>
                                 @if ($errors->has('gender'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('gender') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </li>
+                        <li class="input-group-item">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-fw fa-calendar color-primary" aria-hidden="true"></i>
+                                </span>
+                                <select class="input-group selectpicker show-tick show-menu-arrow form-control"
+                                        data-size="5"
+                                        title="Choose Age Range"
+                                        id="age_range"
+                                        name="age_range"
+                                >
+                                    <option value="under_18" {{$user->age_range == 'under_18' ? 'selected' : ''}}>Under 18</option>
+                                    <option value="18-24" {{$user->age_range == '18-24' ? 'selected' : ''}}>18-24</option>
+                                    <option value="25-34" {{$user->age_range == '25-34' ? 'selected' : ''}}>25-34</option>
+                                    <option value="35-44" {{$user->age_range == '35-44' ? 'selected' : ''}}>35-44</option>
+                                    <option value="45-54" {{$user->age_range == '45-54' ? 'selected' : ''}}>45-54</option>
+                                    <option value="55-64" {{$user->age_range == '55-64' ? 'selected' : ''}}>55-64</option>
+                                    <option value="65+" {{$user->age_range == '65+' ? 'selected': '' }}>65+</option>
+                                </select>
+                                @if ($errors->has('age_range'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('age_range') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -147,7 +171,7 @@
                                         id="dob"
                                         type="tel"
                                         name="dob"
-                                        value=""
+                                        value="{{ $user->dob }}"
                                         placeholder="DD-MM-YYYY"
                                         maxlength="10"
                                         pattern="(0[1-9]|1[0-9]|2[0-9]|3[01])-(0[1-9]|1[012])-[0-9]{4}"
@@ -171,80 +195,14 @@
                                         class="form-control input-x1s"
                                         id="mobile"
                                         type="text"
-                                        name="mobile"
-                                        value=""
+                                        name="phone_no"
+                                        value="{{ $user->phone_no }}"
                                         placeholder="Your mobile phone number"
                                 >
                                 <label for="mobile">Mobile phone number</label>
-                                @if ($errors->has('mobile'))
+                                @if ($errors->has('phone_no'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('mobile') }}</strong>
-                                    </span>
-                                @endif
-
-                            </div>
-                        </li>
-                        <li class="input-group-item">
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <i class="fa fa-fw fa-envelope color-primary" aria-hidden="true"></i>
-                                </span>
-                                <input
-                                        class="form-control input-x1s"
-                                        id="postcode"
-                                        type="text"
-                                        name="postcode"
-                                        value=""
-                                        placeholder="Your postcode"
-                                >
-                                <label for="mobile">Your postcode</label>
-                                @if ($errors->has('postcode'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('postcode') }}</strong>
-                                    </span>
-                                @endif
-
-                            </div>
-                        </li>
-                        <li class="input-group-item">
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <i class="fa fa-fw fa-lock color-primary" aria-hidden="true"><span class="mandatory-astrix"></span></i>
-                                </span>
-                                <input
-                                        class="form-control input-x1s"
-                                        id="password"
-                                        type="password"
-                                        name="password"
-                                        value="{{ old('password') }}"
-                                        placeholder="Your password"
-                                >
-                                <label for="password">Your password</label>
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-
-                            </div>
-                        </li>
-                        <li class="input-group-item">
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <i class="fa fa-fw fa-lock color-primary" aria-hidden="true"><span class="mandatory-astrix"></span></i>
-                                </span>
-                                <input
-                                        class="form-control input-x1s"
-                                        id="password_confirmation"
-                                        type="password"
-                                        name="password_confirmation"
-                                        value="{{ old('password_confirmation') }}"
-                                        placeholder="Confirm your password"
-                                >
-                                <label for="password_confirmation">Confirm your password</label>
-                                @if ($errors->has('password_confirmation'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                        <strong>{{ $errors->first('phone_no') }}</strong>
                                     </span>
                                 @endif
 
@@ -254,17 +212,10 @@
                 </fieldset>
                 <div class="form-group">
                     <div class="col-xs-12 text-center">
-                        <button
-                                id="update-details"
-                                type="submit"
-                                class="btn btn-block text-uppercase btn-primary"
-                        >
+                        <button id="update-details" type="submit" class="btn btn-block text-uppercase btn-primary">
                             Update details
                         </button>
-                        <a
-                                href="{{route('auth.login-form')}}"
-                                class="btn btn-link color-muted"
-                        >
+                        <a href="{{route('auth.login-form')}}" class="btn btn-link color-muted">
                             Cancel
                         </a>
                     </div>
@@ -278,11 +229,12 @@
 @endsection
 
 @section('scripts')
+    <script type="text/javascript" src="{{ asset('/js/jquery.mask.js') }}"></script>
     <script type="text/javascript">
         $(function () {
             var viewDate = '';
 
-            $( ".datetimepicker" ).datepicker({
+            $(".datetimepicker").datepicker({
                 changeMonth: true,
                 changeYear: true,
                 minDate: '-90Y',
@@ -298,7 +250,7 @@
             });
         });
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('#dob').mask('00-00-0000');
         });
     </script>

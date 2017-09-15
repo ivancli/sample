@@ -10,24 +10,23 @@ namespace App\Listeners\Auth;
 
 
 use App\Contracts\Models\UserContract;
+use App\Services\MailingAgentService;
 use Illuminate\Auth\Events\Registered;
 
 class RegisterEventSubscriber
 {
-    protected $userRepo;
 
-    public function __construct(UserContract $userContract)
+    protected $mailingAgentService;
+
+    public function __construct(MailingAgentService $mailingAgentService)
     {
-        $this->userRepo = $userContract;
+        $this->mailingAgentService = $mailingAgentService;
     }
 
     public function onRegistered($event)
     {
         $user = $event->user;
-
-        session()->put('sprooki_sessid', $user->sessid);
-        session()->put('sprooki_deviceid', $user->email);
-        session()->put('sprooki_devicetype', 'WEB');
+        $this->mailingAgentService->store($user);
     }
 
     public function subscribe($events)

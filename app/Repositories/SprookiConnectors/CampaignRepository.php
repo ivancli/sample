@@ -13,14 +13,30 @@ use App\Contracts\Repositories\CampaignContract;
 
 class CampaignRepository extends CampaignContract
 {
-
-    public function call()
+    public function getActiveCampaigns(array $data = [])
     {
-        $response = $this->curl->to($this->endpoint)
-            ->withHeaders($this->headers)
-            ->withData($this->params)
-            ->returnResponseObject()
-            ->asJson()
-            ->post();
+        /*init configuration*/
+        $this->config();
+
+        $data = $this->__prepUserInfo($data);
+
+        /*set up parameters*/
+        $this->params('GetActiveCampaigns', $data);
+
+        $result = $this->call();
+
+        return $result->data;
+    }
+
+    private function __prepUserInfo(array $data)
+    {
+        $user = null;
+        if (!is_null(auth()->user())) {
+            $user = auth()->user();
+        }
+
+        array_set($data, 'deviceid', !is_null($user) ? $user->email : array_get($data, 'useremail'));
+        array_set($data, 'accounttype', 'EMAIL');
+        return $data;
     }
 }

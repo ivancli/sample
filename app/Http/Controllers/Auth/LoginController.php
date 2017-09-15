@@ -29,7 +29,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/campaigns';
+    protected $redirectTo = '/coupons';
 
     protected $sprookiUserRepo;
 

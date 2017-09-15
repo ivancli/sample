@@ -30,24 +30,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
-//        $this->app->bind(
-//            \App\Repositories\EntityRepositoryInterface::class, function ($app) {
-//            $user_repository = new \App\Repositories\UserRepository(new \App\Adapters\Sprooki);
-//            $user_repository->initializeConfigs($this->getClient()->configs());
-//            return $user_repository;
-//        });
-//
-//        $this->app->bind(
-//            \App\Repositories\EntityRepositoryInterface::class, function ($app) {
-//            $user_repository = new \App\Repositories\UserRepository(new \App\Adapters\Sprooki);
-//            $user_repository->initializeConfigs($this->getClient()->configs());
-//            return $user_repository;
-//        });
-//
-//
-//        $this->app->bind(\App\Adapters\RequestAdapterInterface::class, \App\Adapters\Sprooki::class);
-
         /*TODO this part is not working, hence running prepauth for each of the IcC*/
 //        $this->app->bind(\App\Contracts\SprookiConnectorContract::class, function ($app) {
 //            $client = $this->getClient();
@@ -57,17 +39,32 @@ class AppServiceProvider extends ServiceProvider
 //        });
 
         $this->app->bind(\App\Contracts\Models\UserContract::class, \App\Repositories\Models\UserRepository::class);
+        $this->app->bind(\App\Contracts\Repositories\MailingAgentContract::class, \App\Repositories\MailingAgentRepository::class);
 
-        $this->app->bind(\App\Contracts\Repositories\UserContract::class, function ($app) {
+        $this->app->bind(\App\Contracts\Repositories\UserContract::class, function () {
             $client = $this->getClient();
             $connector = $this->app->make(\App\Repositories\SprookiConnectors\UserRepository::class);
             $connector->prepAuth($client);
             return $connector;
         });
 
-        $this->app->bind(\App\Contracts\Repositories\CampaignContract::class, function(){
+        $this->app->bind(\App\Contracts\Repositories\CampaignContract::class, function () {
             $client = $this->getClient();
             $connector = $this->app->make(\App\Repositories\SprookiConnectors\CampaignRepository::class);
+            $connector->prepAuth($client);
+            return $connector;
+        });
+
+        $this->app->bind(\App\Contracts\Repositories\CouponContract::class, function () {
+            $client = $this->getClient();
+            $connector = $this->app->make(\App\Repositories\SprookiConnectors\CouponRepository::class);
+            $connector->prepAuth($client);
+            return $connector;
+        });
+
+        $this->app->bind(\App\Contracts\Repositories\ReceiptContract::class, function () {
+            $client = $this->getClient();
+            $connector = $this->app->make(\App\Repositories\SprookiConnectors\ReceiptRepository::class);
             $connector->prepAuth($client);
             return $connector;
         });

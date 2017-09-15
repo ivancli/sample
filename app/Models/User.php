@@ -21,7 +21,7 @@ class User extends Model implements CanResetPasswordContract, UserContract
     protected $guarded = [];
 
     protected $fillable = [
-        'given_name', 'family_name', 'email', 'password', 'gender', 'dob', 'phone_no', 'postcode', 'enduserid', 'sessid'
+        'given_name', 'family_name', 'email', 'password', 'gender', 'dob', 'phone_no', 'age_range', 'enduserid', 'sessid'
     ];
 
     /**

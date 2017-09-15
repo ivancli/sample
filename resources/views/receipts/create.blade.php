@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Redeem Coupon
+    Upload Receipt
 @endsection
 
 @section('sub-header')
@@ -21,149 +21,85 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="heading u__heading text-left">
-                <button
-                        type="button"
-                        role="button"
-                        class="btn-link btn-back">
-                    <i class="fa fa-chevron-circle-left color-primary" aria-hidden="true"></i>
-                </button>
-                <span>Redeem Coupon</span>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="item media-item sm-media-item">
-                <div class="media fx fx-cc-items">
-                    <img
-                            class="img-cover img-tl"
-                            src="http://devinvigor.sprookimanagerx.com/images//invigor/ext-images/Campaign4525_1.png"
-                            alt="New FREE Reg. Coffee TODAY with ANY purchase"
-                    >
-                </div>
-                <div class="details pad-sm fx">
-                    <div class="title">
-                        BUY 5 COFFEES AND GET THE 6TH ONE FREE
-                    </div>
-                    <div class="description more">
-                        Receive a coffee card and have it clipped each time you buy a McCafé® Coffee and your 6th is FREE.
-                        <div class="terms">
-                            <div class="heading h5">Terms and Conditions:</div>
-                            <div>
-                                This card cannot be used in conjunction with or to discount any other offer.
-                                Additional chargesmay apply for soy, extra shot and flavours.
-                                Offer not redeemable via McDelivery®, mobile ordering,self-ordering kiosks.
-                                Valid until 31/12/17 at McCafé® at McDonald’s®
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="description less">
-                        Receive a coffee card and have it clipped each time you buy a McCafé® Coffee and your 6th is FREE.
-                    </div>
-
-                    <a href="#" class="more-less-link color-primary">Show more</a>
-                </div>
+                <a type="button"
+                   role="button"
+                   class="btn-link btn-back">
+                    <i class="fa fa-chevron-circle-left color-primary" aria-hidden="true" href="#"></i>
+                </a>
+                <span>Upload Receipt</span>
             </div>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-xs-12 text-center">
-            <div class="box box-primary">
-                <div class="media-card c-media-card card-horizontal">
-                    <div class="media-icon">
-                        <i class="fa fa-check text-success fa-lg" aria-hidden="true"></i>
-                    </div>
-
-                    <div class="media-content">
-                        <div class="text-uppercase">
-                            <span class="heading h4">
-                                Coupon Downloaded
-                            </span> &nbsp;
-                        </div>
-                        <div class="text-uppercase">
-                            <span class="heading h4">
-                                Code: 555-444-22
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div class="col-xs-12">
-            <p class="text-center text-muted text-smaller">
-                Ends 31 August 2017. Get coupon now & pay in store.
-            </p>
+        <div class="col-xs-12 small text-center">
+            <p>Please click the button below to upload your receipt.</p>
         </div>
     </div>
 
-    <br>
-
-    @if(true==true)
-        <form
-                action="{{route('coupons.redemption', ['item' => 1])}}"
-                method="post"
-        >
-            {{ csrf_field() }}
-
-            <div class="row">
-                <div class="form-group">
-                    <div class="col-xs-12 text-center">
-                        <div class="box box-default">
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <div class="input-group-item">
-                                        <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="fa fa-lock color-secondary pad-right-special" aria-hidden="true"></i>
-                                        </span>
-                                            <input
-                                                    type="text"
-                                                    id="redemptioncode"
-                                                    class="form-control input-bald"
-                                                    name="redemptioncode"
-                                                    value=""
-                                                    autocapitalize="off"
-                                                    placeholder="Enter store redemption code"
-                                            >
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <form action="{{ route('receipts.store') }}" class="form-horizontal" method="post" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                <div class="form-group m-b-20">
+                    <div class="col-xs-12">
+                        <label for="receipt-image" id="receipt-image-label" class="btn btn-primary btn-block" style="min-height: 35px; right: 0; position: relative;">
+                            <span id="receipt-image-text">Select File</span>
+                            <input type="file" id="receipt-image" name="receipt" style="position: fixed; top: -1000px; left: -1000px; width: 1px; height: 1px;">
+                        </label>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 text-center">
-                    <button
-                            id="confirm-redemption"
-                            type="submit"
-                            class="btn btn-block text-uppercase btn-primary"
-                    >
-                        Confirm Redemption
-                    </button>
+
+                <div class="form-group m-b-20" style="display: none;" id="preview-container">
+                    <div class="col-sm-12 text-center">
+                        <img src="" alt="" style="max-width: 100%; border: 2px lightgrey dashed;" id="preview-receipt">
+                    </div>
                 </div>
-            </div>
 
-            <br>
-
-        </form>
-    @else
-        <div class="row">
-            <div class="col-xs-12 text-center lead">
-                <p>This Coupon has been redeemed. </p>
-            </div>
+                <div class="form-group m-b-20" style="display: none;" id="submit-container">
+                    <div class="col-sm-12 text-center">
+                        <button type="submit" id="btn-upload-receipt" class="btn btn-success btn-block">Upload Receipt</button>
+                    </div>
+                </div>
+            </form>
         </div>
-    @endif
-
+    </div>
 @endsection
 
 @section('scripts')
+    <script>
+        $(document).ready(function () {
+            $("#receipt-image").on("change", function () {
+                var fullPath = $(this).val();
+                if (fullPath) {
+                    var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+                    var filename = fullPath.substring(startIndex);
+                    if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+                        filename = filename.substring(1);
+                        $("#receipt-image-text").text(filename);
+                        readURL(this);
+                    }
+                }
+            });
+        });
 
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#receipt-image-label').removeClass("btn-primary").addClass("btn-default");
+                    $('#preview-receipt').attr('src', e.target.result);
+                    $('#preview-container,#submit-container').fadeIn(function () {
+                        $("html, body").animate({scrollTop: $(document).height()}, "slow");
+                    });
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+    </script>
 @stop
 

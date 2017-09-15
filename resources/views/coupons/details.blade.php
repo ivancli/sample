@@ -33,38 +33,41 @@
     </div>
 
 
+    {{ dump($coupon) }}
     <div class="row">
         <div class="col-xs-12">
-            <div class="item media-item sm-media-item">
-                <div class="media fx fx-cc-items">
-                    <img
-                            class="img-cover img-tl"
-                            src="http://devinvigor.sprookimanagerx.com/images//invigor/ext-images/Campaign4525_1.png"
-                            alt="New FREE Reg. Coffee TODAY with ANY purchase"
-                    >
-                </div>
-                <div class="details pad-sm fx">
-                    <div class="title">
-                        BUY 5 COFFEES AND GET THE 6TH ONE FREE
+            <div class="list-group-item Offer">
+                <div class="item media-item sm-media-item">
+                    <div class="media fx fx-cc-items">
+                        <img
+                                class="img-cover img-tl"
+                                src="{{ array_first($coupon->campaign->images, null, '#') }}"
+                                alt="{{ $coupon->campaign->name }}"
+                        >
                     </div>
-                    <div class="description more">
-                        Receive a coffee card and have it clipped each time you buy a McCafé® Coffee and your 6th is FREE.
-                        <div class="terms">
-                            <div class="heading h5">Terms and Conditions:</div>
-                            <div>
-                                This card cannot be used in conjunction with or to discount any other offer.
-                                Additional chargesmay apply for soy, extra shot and flavours.
-                                Offer not redeemable via McDelivery®, mobile ordering,self-ordering kiosks.
-                                Valid until 31/12/17 at McCafé® at McDonald’s®
+                    <div class="details pad-sm fx">
+                        <div class="title">
+                            {{ $coupon->campaign->name }}
+                        </div>
+                        <div class="description more">
+                            {{ $coupon->campaign->description }}
+                            <div class="terms">
+                                <div class="heading h5">Terms and Conditions:</div>
+                                <div>
+                                    This card cannot be used in conjunction with or to discount any other offer.
+                                    Additional chargesmay apply for soy, extra shot and flavours.
+                                    Offer not redeemable via McDelivery®, mobile ordering,self-ordering kiosks.
+                                    Valid until 31/12/17 at McCafé® at McDonald’s®
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="description less">
-                        Receive a coffee card and have it clipped each time you buy a McCafé® Coffee and your 6th is FREE.
-                    </div>
+                        <div class="description less">
+                            {{ $coupon->campaign->description }}
+                        </div>
 
-                    <a href="#" class="more-less-link color-primary">Show more</a>
+                        <a href="#" class="more-less-link color-primary">Show more</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -74,12 +77,25 @@
 
     <div class="row action-button-holder">
         <div class="col-xs-12">
-            <button
-                id="get-now"
-                data-offer-id="1"
-                data-redem-url="{{route('coupons.redeem', ['offer_id' => 1])}}"
-                class="btn btn-block btn-primary btn-flat text-uppercase"
-            >Get now</button>
+            @if($coupon->status == 'NEW')
+                <a
+                        id="coupon-redeem"
+                        href="{{route('coupons.redeem', ['coupon_id' => $coupon->id])}}"
+                        class="btn btn-block btn-primary btn-flat text-uppercase"
+                >Redeem</a>
+            @elseif(($coupon->status == 'EXPIRED') || ($coupon->status == 'DELETED'))
+                <a
+                        href="#"
+                        disabled="disabled"
+                        class="btn btn-block btn-primary btn-flat text-uppercase"
+                >Expired</a>
+            @elseif($coupon->status == 'REDEEMED')
+                <a
+                        href="#"
+                        disabled="disabled"
+                        class="btn btn-block btn-primary btn-flat text-uppercase"
+                >Redeemed</a>
+            @endif
         </div>
         <div class="col-xs-12">
             <p class="text-center text-muted text-smaller">

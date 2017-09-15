@@ -2,17 +2,18 @@
 /**
  * Created by PhpStorm.
  * User: ivan.li
- * Date: 13/09/2017
- * Time: 2:28 PM
+ * Date: 14/09/2017
+ * Time: 1:31 PM
  */
 
 namespace App\Contracts\Repositories;
 
 
-use App\Exceptions\SprookiRequestException as RequestException;
 use Ixudra\Curl\Facades\Curl;
 
-abstract class CampaignContract extends StandardSprookiConnector
+use App\Exceptions\SprookiRequestException as RequestException;
+
+abstract class ReceiptContract extends StandardSprookiConnector
 {
     const DEVICE_TYPE = 'WEB';
 
@@ -36,14 +37,23 @@ abstract class CampaignContract extends StandardSprookiConnector
             'auth' => $auth,
             'request' => $request,
             'params' => $params,
-            'devicetype' => self::DEVICE_TYPE,
             'compressed' => false,
-            'version' => $this->version,
+            'version' => "2.4", //fixed version requested by Marc
             'locale' => 'en_AU'
         );
+        $device = [
+            "type" => self::DEVICE_TYPE,
+            "token" => null,
+            "model" => null,
+            "version" => null,
+            "appversion" => null,
+        ];
+
         if (!is_null($this->deviceid)) {
-            array_set($curlParams, 'deviceid', $this->deviceid);
+            array_set($device, 'id', $this->deviceid);
         }
+        array_set($curlParams, 'device', $device);
+
         if ($this->sessid != null) {
             array_set($curlParams, 'sessid', $this->sessid);
         }
@@ -77,5 +87,7 @@ abstract class CampaignContract extends StandardSprookiConnector
         return $response;
     }
 
-    abstract public function getActiveCampaigns(array $data = []);
+    abstract public function uploadImage(array $data = []);
+
+    abstract public function getReceipts(array $data = []);
 }

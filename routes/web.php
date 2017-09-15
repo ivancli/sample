@@ -17,42 +17,43 @@ Route::group(['middleware' => 'guest'], function () {
     Route::get('frequently-asked-questions', 'PageController@faq')->name('pages.faq');
 });
 
-// campaigns
-Route::group([
-    'prefix' => 'campaigns',
-    'middleware' => ['auth'],
-], function () {
-
-    // /campaigns - campaigns list
-    Route::get('/', [
-        'as' => 'campaigns.list',
-        'uses' => 'CampaignController@index'
-    ]);
-
-    // campaigns/{campaign_id}/details - campaign details
-    Route::get('{campaign_id}/details', [
-        'as' => 'campaigns.details',
-        'uses' => 'CampaignController@show'
-    ]);
-
-    // campaigns/{campaign_id}/download - campaign download
-    Route::get('{campaign_id}/download', [
-        'as' => 'campaigns.download',
-        'uses' => 'CampaignController@download'
-    ]);
-
-    // campaigns/{campaign_id}/store - campaign store
-    Route::post('store', [
-        'as' => 'campaigns.store',
-        'uses' => 'CampaignController@store'
-    ]);
-
-});
+//// campaigns
+//Route::group([
+//    'prefix' => 'campaigns',
+//    'middleware' => ['auth'],
+//], function () {
+//
+//    // /campaigns - campaigns list
+//    Route::get('/', [
+//        'as' => 'campaigns.list',
+//        'uses' => 'CampaignController@index'
+//    ]);
+//
+//    // campaigns/{campaign_id}/details - campaign details
+//    Route::get('{campaign_id}/details', [
+//        'as' => 'campaigns.details',
+//        'uses' => 'CampaignController@show'
+//    ]);
+//
+//    // campaigns/{campaign_id}/download - campaign download
+//    Route::get('{campaign_id}/download', [
+//        'as' => 'campaigns.download',
+//        'uses' => 'CampaignController@download'
+//    ]);
+//
+//    // campaigns/{campaign_id}/store - campaign store
+//    Route::post('store', [
+//        'as' => 'campaigns.store',
+//        'uses' => 'CampaignController@store'
+//    ]);
+//
+//});
 
 
 // coupons
 Route::group([
     'prefix' => 'coupons',
+    'middleware' => ['auth']
 ], function () {
 
     // /coupons - coupons list
@@ -83,6 +84,7 @@ Route::group([
 // receipts
 Route::group([
     'prefix' => 'receipts',
+    'middleware' => ['auth']
 ], function () {
 
     // /receipts - receipts list
@@ -103,11 +105,18 @@ Route::group([
         'uses' => 'ReceiptController@store'
     ]);
 
+    // /receipts/store - receipts store
+    Route::post('/{receipt_id}', [
+        'as' => 'receipts.show',
+        'uses' => 'ReceiptController@show'
+    ]);
+
 });
 
 // account
 Route::group([
-    'prefix' => 'account'
+    'prefix' => 'account',
+    'middleware' => ['auth']
 ], function () {
     Route::get('me', [
         'as' => 'account.profile',
@@ -115,7 +124,7 @@ Route::group([
     ]);
 
     //account/update
-    Route::post('update',[
+    Route::post('update', [
         'as' => 'account.profile.update',
         'uses' => 'AccountController@update'
     ]);
@@ -159,7 +168,6 @@ Route::group([
     ]);
 
     Route::get('registration/acknowledge', [
-        'middleware' => ['guest'],
         'as' => 'auth.registration-acknowledge',
         'uses' => 'Auth\RegisterController@showRegistrationAcknowledge'
     ]);

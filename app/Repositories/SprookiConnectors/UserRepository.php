@@ -53,14 +53,14 @@ class UserRepository extends UserContract
             $password = array_get($data, 'password');
             /*TODO enable the following line of code before pushing to live*/
 //            array_set($data, 'password', aes_128_encrypt($password, $this->getPrivateKey()));
-            array_set($data, 'password', "wGlnv9/s/aEFSbNXTIaANA==");
+            array_set($data, 'password', "ZeMo4kY4gfOb2V+8S3bBkPtBAImxtLR6KvE6yOBN\/K0=");
         }
 
         $this->params('CreateUser', $data);
 
         $result = $this->call();
 
-        $userData = $result->content->data;
+        $userData = $result->data;
         $user = $this->getUser($userData);
 
         return $user;
@@ -85,7 +85,7 @@ class UserRepository extends UserContract
             $password = array_get($credentials, 'password');
             /*TODO enable the following line of code before pushing to live*/
 //            array_set($data, 'password', aes_128_encrypt($password, $this->getPrivateKey()));
-            array_set($credentials, 'password', "wGlnv9/s/aEFSbNXTIaANA==");
+            array_set($credentials, 'password', "ZeMo4kY4gfOb2V+8S3bBkPtBAImxtLR6KvE6yOBN\/K0=");
         }
         /*set up parameters*/
         $data = $credentials;
@@ -93,9 +93,9 @@ class UserRepository extends UserContract
 
         $result = $this->call();
 
-        $userData = $result->content->data;
-        if (isset($result->content->sessid)) {
-            $userData->sessid = $result->content->sessid;
+        $userData = $result->data;
+        if (isset($result->sessid)) {
+            $userData->sessid = $result->sessid;
         }
         $user = $this->getUser($userData);
         return $user;
@@ -133,18 +133,32 @@ class UserRepository extends UserContract
             'accounttype' => 'EMAIL',
         ];
         $this->config();
+        $params = array_merge($params, $data);
         $this->params('ForgotPassword', $params);
         $result = $this->call();
-        dd($result);
+        return $result->data;
     }
 
     /**
      * update password
+     * @param array $data
      * @return mixed
      */
-    public function resetPassword()
+    public function resetPassword(array $data)
     {
-        // TODO: Implement resetPassword() method.
+        $params = [
+            'deviceid' => array_get($data, 'email'),
+            'accounttype' => 'EMAIL',
+        ];
+        $this->config();
+        $params = array_merge($params, $data);
+
+//        array_set($params, 'password', aes_128_encrypt(array_get($params, 'password'), $this->getPrivateKey()));
+        array_set($params, 'password', "ZeMo4kY4gfOb2V+8S3bBkPtBAImxtLR6KvE6yOBN\/K0=");
+
+        $this->params('ResetPassword', $params);
+        $result = $this->call();
+        return true;
     }
 
     private function __matchFields($data)
@@ -155,6 +169,59 @@ class UserRepository extends UserContract
                 array_forget($data, $originalField);
             }
         }
+        return $data;
+    }
+
+    /**
+     * load user details
+     * @param array $data
+     * @return mixed
+     */
+    public function getUserDetails(array $data = [])
+    {
+        $this->config();
+
+        $data = $this->__prepUserInfo($data);
+        $this->params('GetUserDetails', $data);
+
+        $result = $this->call();
+
+        $user = $this->getUser($result->data);
+        return $user;
+    }
+
+    /**
+     * update user details
+     * @param array $data
+     * @return mixed
+     */
+    public function updateUserDetails(array $data = [])
+    {
+        $data = $this->__matchFields($data);
+        $params = [
+            'useremail' => array_get($data, 'email'),
+            'deviceid' => !is_null(auth()->user()) ? auth()->user()->email : array_get($data, 'email'),
+            'accounttype' => 'EMAIL',
+        ];
+        $this->config();
+        $params = array_merge($params, $data);
+        $this->params('UpdateUserDetails', $params);
+        $result = $this->call();
+
+        $user = $this->getUser($result->data);
+
+        return $user;
+    }
+
+    private function __prepUserInfo(array $data)
+    {
+        $user = null;
+        if (!is_null(auth()->user())) {
+            $user = auth()->user();
+        }
+
+        array_set($data, 'deviceid', !is_null($user) ? $user->email : array_get($data, 'useremail'));
+        array_set($data, 'accounttype', 'EMAIL');
         return $data;
     }
 }

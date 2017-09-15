@@ -5,12 +5,12 @@
         <div class="overlay"></div>
         <ul class="list-unstyled navbar-items">
             <li class="menu-label">Menu</li>
-            <li class="active">
-                <a href="{{route('campaigns.list')}}">
-                    <i class="fa fa-tags" aria-hidden="true"></i>
-                    Campaigns
-                </a>
-            </li>
+            {{--<li class="active">--}}
+                {{--<a href="{{route('campaigns.list')}}">--}}
+                    {{--<i class="fa fa-tags" aria-hidden="true"></i>--}}
+                    {{--Campaigns--}}
+                {{--</a>--}}
+            {{--</li>--}}
             <li class="active">
                 <a href="{{route('coupons.list')}}">
                     <i class="fa fa-tags" aria-hidden="true"></i>

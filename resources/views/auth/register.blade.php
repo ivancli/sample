@@ -33,6 +33,15 @@
     </div>
 
     <div class="row">
+        <div class="col-xs-12 no-gutter small text-center">
+            @include('partials.alerts', [
+                'alerts' => $errors,
+                'class' => 'fade-alert1'
+            ])
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
 
             <form
@@ -64,9 +73,9 @@
                                 </span>
                                 @endif
                                 {{--@if ($errors->has('givenname'))--}}
-                                    {{--<span class="help-block has-error">--}}
-                                        {{--<span>{{ $errors->first('givenname') }}</span>--}}
-                                    {{--</span>--}}
+                                {{--<span class="help-block has-error">--}}
+                                {{--<span>{{ $errors->first('givenname') }}</span>--}}
+                                {{--</span>--}}
                                 {{--@endif--}}
 
                             </div>
@@ -91,9 +100,9 @@
                                 </span>
                                 @endif
                                 {{--@if ($errors->has('familyname'))--}}
-                                    {{--<span class="help-block has-error">--}}
-                                        {{--<span>{{ $errors->first('familyname') }}</span>--}}
-                                    {{--</span>--}}
+                                {{--<span class="help-block has-error">--}}
+                                {{--<span>{{ $errors->first('familyname') }}</span>--}}
+                                {{--</span>--}}
                                 {{--@endif--}}
 
                             </div>
@@ -118,9 +127,9 @@
                                 </span>
                                 @endif
                                 {{--@if ($errors->has('email'))--}}
-                                    {{--<span class="help-block has-error">--}}
-                                        {{--<span>{{ $errors->first('email') }}</span>--}}
-                                    {{--</span>--}}
+                                {{--<span class="help-block has-error">--}}
+                                {{--<span>{{ $errors->first('email') }}</span>--}}
+                                {{--</span>--}}
                                 {{--@endif--}}
 
                             </div>
@@ -150,10 +159,32 @@
                                 </select>
                                 {{--<label for="gender">Your gender</label>--}}
                                 {{--@if ($errors->has('gender'))--}}
-                                    {{--<span class="help-block has-error">--}}
-                                        {{--<span>{{ $errors->first('gender') }}</span>--}}
-                                    {{--</span>--}}
+                                {{--<span class="help-block has-error">--}}
+                                {{--<span>{{ $errors->first('gender') }}</span>--}}
+                                {{--</span>--}}
                                 {{--@endif--}}
+                            </div>
+                        </li>
+                        <li class="input-group-item @if ($errors->has('age_range')) has-error @endif">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-fw fa-calendar color-primary" aria-hidden="true"></i>
+                                </span>
+                                <select
+                                        class="input-group selectpicker show-tick show-menu-arrow form-control"
+                                        data-size="5"
+                                        title="Choose Age Range"
+                                        id="age_range"
+                                        name="age_range"
+                                >
+                                    <option value="under_18" {{old('age_range') == 'under_18' ? 'selected' : ''}}>Under 18</option>
+                                    <option value="18-24" {{old('age_range') == '18-24' ? 'selected' : ''}}>18-24</option>
+                                    <option value="25-34" {{old('age_range') == '25-34' ? 'selected' : ''}}>25-34</option>
+                                    <option value="35-44" {{old('age_range') == '35-44' ? 'selected' : ''}}>35-44</option>
+                                    <option value="45-54" {{old('age_range') == '45-54' ? 'selected' : ''}}>45-54</option>
+                                    <option value="55-64" {{old('age_range') == '55-64' ? 'selected' : ''}}>55-64</option>
+                                    <option value="65+" {{old('age_range') == '65+' ? 'selected': '' }}>65+</option>
+                                </select>
                             </div>
                         </li>
                         <li class="input-group-item @if ($errors->has('dob')) has-error @endif">
@@ -174,54 +205,27 @@
                                 >
                                 <label for="dob">Your date of birth</label>
                                 {{--@if ($errors->has('dob'))--}}
-                                    {{--<span class="help-block has-error">--}}
-                                        {{--<span>{{ $errors->first('dob') }}</span>--}}
-                                    {{--</span>--}}
+                                {{--<span class="help-block has-error">--}}
+                                {{--<span>{{ $errors->first('dob') }}</span>--}}
+                                {{--</span>--}}
                                 {{--@endif--}}
 
                             </div>
                         </li>
-                        <li class="input-group-item @if ($errors->has('mobile')) has-error @endif">
+                        <li class="input-group-item @if ($errors->has('phone_no')) has-error @endif">
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="fa fa-fw fa-phone-square color-primary" aria-hidden="true"></i>
                                 </span>
                                 <input
                                         class="form-control input-x1s"
-                                        id="mobile"
+                                        id="phone_no"
                                         type="text"
-                                        name="mobile"
-                                        value="{{ old('mobile') }}"
-                                        placeholder="Your mobile phone number"
+                                        name="phone_no"
+                                        value="{{ old('phone_no') }}"
+                                        placeholder="Your phone_no phone number"
                                 >
-                                <label for="mobile">Mobile phone number</label>
-                                {{--@if ($errors->has('mobile'))--}}
-                                    {{--<span class="help-block has-error">--}}
-                                        {{--<span>{{ $errors->first('mobile') }}</span>--}}
-                                    {{--</span>--}}
-                                {{--@endif--}}
-                            </div>
-                        </li>
-                        <li class="input-group-item @if ($errors->has('postcode')) has-error @endif">
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <i class="fa fa-fw fa-envelope color-primary" aria-hidden="true"></i>
-                                </span>
-                                <input
-                                        class="form-control input-x1s"
-                                        id="postcode"
-                                        type="text"
-                                        name="postcode"
-                                        value="{{ old('postcode') }}"
-                                        placeholder="Your postcode"
-                                >
-                                <label for="mobile">Your postcode</label>
-                                {{--@if ($errors->has('postcode'))--}}
-                                    {{--<span class="help-block has-error">--}}
-                                        {{--<span>{{ $errors->first('postcode') }}</span>--}}
-                                    {{--</span>--}}
-                                {{--@endif--}}
-
+                                <label for="phone_no">Mobile phone number</label>
                             </div>
                         </li>
                         <li class="input-group-item @if ($errors->has('password')) has-error @endif">
@@ -229,26 +233,13 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-fw fa-lock color-primary" aria-hidden="true"><span class="mandatory-astrix"></span></i>
                                 </span>
-                                <input
-                                        class="form-control input-x1s"
-                                        id="password"
-                                        type="password"
-                                        name="password"
-                                        value="{{ old('password') }}"
-                                        placeholder="Your password"
-                                >
+                                <input class="form-control input-x1s" id="password" type="password" name="password" value="{{ old('password') }}" placeholder="Your password">
                                 <label for="password">Your password</label>
                                 @if ($errors->has('password'))
                                     <span class="help-block">
                                     <strong>{{ $errors->first('password') }}</strong>
                                 </span>
                                 @endif
-                                {{--@if ($errors->has('password'))--}}
-                                    {{--<span class="help-block has-error">--}}
-                                        {{--<span>{{ $errors->first('password') }}</span>--}}
-                                    {{--</span>--}}
-                                {{--@endif--}}
-
                             </div>
                         </li>
                         <li class="input-group-item @if ($errors->has('password_confirmation')) has-error @endif">
@@ -256,33 +247,15 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-fw fa-lock color-primary" aria-hidden="true"><span class="mandatory-astrix"></span></i>
                                 </span>
-                                <input
-                                        class="form-control input-x1s"
-                                        id="password_confirmation"
-                                        type="password"
-                                        name="password_confirmation"
-                                        value="{{ old('password_confirmation') }}"
-                                        placeholder="Confirm your password"
-                                >
+                                <input class="form-control input-x1s" id="password_confirmation" type="password" name="password_confirmation" value="{{ old('password_confirmation') }}" placeholder="Confirm your password">
                                 <label for="password_confirmation">Confirm your password</label>
-                                {{--@if ($errors->has('password_confirmation'))--}}
-                                    {{--<span class="help-block has-error">--}}
-                                        {{--<span>{{ $errors->first('password_confirmation') }}</span>--}}
-                                    {{--</span>--}}
-                                {{--@endif--}}
-
                             </div>
                         </li>
                         <li class="input-group-item bb-none">
                             <div class="input-group">
                                 <label class="checkbox">
-                                    <input
-                                            name="tnc"
-                                            class="form-control input-x1s"
-                                            type="checkbox"
-                                            checked="checked"
-                                            value="1"
-                                    ><span>Agree with the terms and conditions?</span>
+                                    <input name="tnc" class="form-control input-x1s" type="checkbox" value="1">
+                                    <span>Please keep my update to date with news, information and offers from Belrose Super Centre</span>
                                 </label>
                             </div>
                         </li>
@@ -290,17 +263,15 @@
                 </fieldset>
                 <div class="form-group">
                     <div class="col-xs-12 text-center">
-                        <button
-                                id="update-details"
-                                type="submit"
-                                class="btn btn-block text-uppercase btn-secondary"
-                        >
+                        <button id="update-details" type="submit" class="btn btn-block text-uppercase btn-secondary">
                             Register
                         </button>
-                        <a
-                                href="{{route('auth.login-form')}}"
-                                class="btn btn-link color-muted"
-                        >
+
+                        <p class="text-center small text-muted">
+                            By submitting your details you agree to the <a href="#">Terms & Conditions</a> of this Aventus Rewards Program and associated <a href="#">Privacy Policy</a>.
+                        </p>
+
+                        <a href="{{route('auth.login-form')}}" class="btn btn-link color-muted">
                             Back
                         </a>
                     </div>
@@ -335,7 +306,7 @@
             });
         });
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('#dob').mask('00-00-0000');
         });
     </script>

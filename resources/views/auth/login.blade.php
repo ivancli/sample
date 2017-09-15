@@ -20,14 +20,14 @@
     <div class="row">
         <div class="col-sm-8 col-sm-offset-2 col-xs-12">
             <br>
-                <div class="row header-welcome text-center">
-                    <div class="col-xs-12 color-secondary">
-                        Welcome to the Belrose Super Centre rewards program!
-                    </div>
-                    <div class="col-xs-12 color-secondary">
-                        Please sign in to upload a new receipt or check your receipt status.
-                    </div>
+            <div class="row header-welcome text-center">
+                <div class="col-xs-12 color-secondary">
+                    Welcome to the Belrose Super Centre rewards program!
                 </div>
+                <div class="col-xs-12 color-secondary">
+                    Please sign in to upload a new receipt or check your receipt status.
+                </div>
+            </div>
             <br>
 
             @if (session('status'))
@@ -43,6 +43,15 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="heading u__heading text-left">Account Login</div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 no-gutter small text-center">
+                    @include('partials.alerts', [
+                        'alerts' => $errors,
+                        'class' => 'fade-alert1'
+                    ])
                 </div>
             </div>
 
@@ -109,12 +118,11 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-xs-12 text-right small">
-                        <a
-                                id="forgot-password"
-                                class="text-muted"
-                                href="{{ route('auth.password.forgot') }}"
-                        >Forgot Your Password?</a>
+                    <div class="col-xs-6 small text-muted">
+                        Click <a id="register" class="text-muted" href="{{ route('auth.registration-form') }}">here</a> to register.
+                    </div>
+                    <div class="col-xs-6 text-right small">
+                        <a id="forgot-password" class="text-muted" href="{{ route('auth.password.forgot') }}">Forgot Your Password?</a>
                     </div>
                 </div>
             </form>

@@ -2,9 +2,12 @@
 
 namespace App\Exceptions;
 
+use ErrorException;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Session\TokenMismatchException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -14,7 +17,7 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        //
+
     ];
 
     /**
@@ -51,6 +54,12 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+
+        if ($exception instanceof SprookiRequestException) {
+            return redirect()->back()->withInput($request->all())
+                ->withErrors($exception->getMessage());
+        }
+
         return parent::render($request, $exception);
     }
 

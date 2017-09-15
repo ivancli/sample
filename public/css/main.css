@@ -803,23 +803,29 @@ and (-webkit-min-device-pixel-ratio: 2) {
     font-size: 1.5em;
     font-weight: 400;
 }
+
 .u__heading span {
     padding-left: 3px;
 }
+
 .btn-link.btn-back {
     padding-left: 0;
     padding-right: 0;
 }
+
 .bb-none {
     border-bottom: none;
     margin-top: 1em;
 }
+
 .fx {
     display: flex;
 }
+
 .fx-wrap {
     flex-wrap: wrap;
 }
+
 .fx-cc-items {
     flex-direction: row;
     text-align: center;
@@ -827,6 +833,7 @@ and (-webkit-min-device-pixel-ratio: 2) {
     align-content: center;
     justify-content: center;
 }
+
 .fx-cr-items {
     flex-direction: row;
     align-items: center;
@@ -834,6 +841,7 @@ and (-webkit-min-device-pixel-ratio: 2) {
     text-align: right;
     justify-content: flex-end;
 }
+
 .fx-cl-items {
     flex-direction: row;
     align-items: center;
@@ -841,6 +849,7 @@ and (-webkit-min-device-pixel-ratio: 2) {
     text-align: left;
     justify-content: flex-start;
 }
+
 .fx-sb-items {
     flex-direction: row;
     align-items: center;
@@ -848,59 +857,83 @@ and (-webkit-min-device-pixel-ratio: 2) {
     text-align: left;
     justify-content: space-between;
 }
+
 .fx-item-top {
     justify-content: flex-start;
     margin-bottom: auto;
 }
+
 .pad-sm {
     padding: 5px;
 }
+
 .box-border {
     border: 1px solid #ccc;
 }
+
 .heading {
     font-weight: 600;
 }
+
 .heading.h5 {
     margin-top: 5px;
     margin-bottom: 5px;
 }
+
 .text-smaller {
     font-size: 75%;
 }
+
 .input-bald {
     border: none !important;
     box-shadow: none !important;
 }
+
 .input-short {
     width: 80%;
 }
+
 .box {
     border: 1px solid #ccc;
     padding: 15px 15px 15px 10px;
     margin: 0;
 }
+
 .box-primary {
     background-color: #ccc;
     border-color: #ccc;
     color: #fff;
 }
+
 img.img-cover {
     object-fit: cover;
     overflow: hidden;
 }
+
 img.img-cover.img-tl {
     object-position: 0% 0%;
 }
+
 img.img-cover.img-tr {
     object-position: 100% 0%;
 }
+
 img.img-cover.img-cc {
     object-position: 50% 50%;
 }
+
 img.img-cover.img-bl {
     object-position: 0% 100%;
 }
+
 img.img-cover.img-br {
     object-position: 100% 100%;
+}
+
+.btn-back:hover {
+    text-decoration: none;
+}
+
+.m-b-20 {
+    margin-bottom: 20px;
 }

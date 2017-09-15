@@ -72,6 +72,7 @@ abstract class UserContract extends StandardSprookiConnector
             if (isset($content->result) && $content->result == 'NOK') {
                 throw new RequestException($content->error->message, $content->error->code);
             }
+            return $content;
         }
 
         return $response;
@@ -106,7 +107,22 @@ abstract class UserContract extends StandardSprookiConnector
 
     /**
      * update password
+     * @param array $data
      * @return mixed
      */
-    abstract public function resetPassword();
+    abstract public function resetPassword(array $data);
+
+    /**
+     * load user details
+     * @param array $data
+     * @return mixed
+     */
+    abstract public function getUserDetails(array $data = []);
+
+    /**
+     * update user details
+     * @param array $data
+     * @return mixed
+     */
+    abstract public function updateUserDetails(array $data = []);
 }

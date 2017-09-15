@@ -34,6 +34,26 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-xs-12 no-gutter small text-center">
+                    @include('partials.alerts', [
+                        'alerts' => $errors,
+                        'class' => 'fade-alert1'
+                    ])
+                </div>
+            </div>
+            @if(isset($message))
+                <div class="row">
+                    <div class="col-xs-12 no-gutter small text-center">
+                        <div class="alert alert-success text-center alert-success">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            {{ $message }}
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+
             <form
                     class="form-horizontal"
                     role="form"

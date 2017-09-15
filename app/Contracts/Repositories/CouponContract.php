@@ -2,17 +2,16 @@
 /**
  * Created by PhpStorm.
  * User: ivan.li
- * Date: 13/09/2017
- * Time: 2:28 PM
+ * Date: 14/09/2017
+ * Time: 9:47 AM
  */
 
 namespace App\Contracts\Repositories;
 
-
 use App\Exceptions\SprookiRequestException as RequestException;
 use Ixudra\Curl\Facades\Curl;
 
-abstract class CampaignContract extends StandardSprookiConnector
+abstract class CouponContract extends StandardSprookiConnector
 {
     const DEVICE_TYPE = 'WEB';
 
@@ -77,5 +76,53 @@ abstract class CampaignContract extends StandardSprookiConnector
         return $response;
     }
 
-    abstract public function getActiveCampaigns(array $data = []);
+    /**
+     * load a list of coupons
+     * @param array $data
+     * @return mixed
+     */
+    abstract public function getCoupons(array $data = []);
+
+    /**
+     * create new coupon in Sprooki
+     * @param array $data
+     * @return mixed
+     * @internal param array $credentials
+     */
+    abstract public function createCoupon(array $data = []);
+
+    /**
+     * destroy session in sprooki
+     * @param array $data
+     * @return mixed
+     */
+    abstract public function redeemCoupon(array $data = []);
+
+    /**
+     * send reset password email
+     * @param array $data
+     * @return mixed
+     */
+    abstract public function revokeCouponPurchase(array $data);
+
+    /**
+     * TODO doesn't seem to be necessary in Aventus Microsite
+     * @param array $data
+     * @return mixed
+     */
+    abstract public function makePaypalPayment(array $data);
+
+    /**
+     * TODO doesn't seem to be necessary in Aventus Microsite
+     * @param array $data
+     * @return mixed
+     */
+    abstract public function confirmPaypalPayment(array $data);
+
+    /**
+     * Load coupon by coupon id
+     * @param $coupon_id
+     * @return mixed
+     */
+    abstract public function getById($coupon_id);
 }

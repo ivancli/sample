@@ -30,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/campaigns';
+    protected $redirectTo = '/auth/registration/acknowledge';
 
     protected $sprookiUserRepo;
 
@@ -49,7 +49,7 @@ class RegisterController extends Controller
      */
     public function __construct(UserContract $userContract)
     {
-        $this->middleware('guest');
+        $this->middleware('guest')->except('showRegistrationAcknowledge');
 
         $this->sprookiUserRepo = $userContract;
 
@@ -90,6 +90,8 @@ class RegisterController extends Controller
             }
         }
         #endregion
+
+        event(new Registered($user));
 
         return $this->registered($request, $user)
             ?: redirect($this->redirectPath());

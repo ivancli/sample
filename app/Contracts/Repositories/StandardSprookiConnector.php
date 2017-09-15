@@ -11,7 +11,6 @@ namespace App\Contracts\Repositories;
 
 use App\Contracts\SprookiConnectorContract;
 use App\Models\Client;
-use Ixudra\Curl\Facades\Curl;
 
 abstract class StandardSprookiConnector implements SprookiConnectorContract
 {
@@ -27,11 +26,6 @@ abstract class StandardSprookiConnector implements SprookiConnectorContract
     protected $params;
 
     protected $curl;
-
-    public function __construct(Curl $curl)
-    {
-        $this->curl = $curl;
-    }
 
     /**
      * set up standard configuration

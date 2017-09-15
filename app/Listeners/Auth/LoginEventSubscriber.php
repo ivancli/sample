@@ -24,10 +24,6 @@ class LoginEventSubscriber
     public function onLogin($event)
     {
         $user = $event->user;
-
-        session()->put('sprooki_sessid', $user->sessid);
-        session()->put('sprooki_deviceid', $user->email);
-        session()->put('sprooki_devicetype', 'WEB');
     }
 
 

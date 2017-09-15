@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('gender')->nullable();
             $table->string('dob')->nullable();
             $table->string('phone_no')->nullable();
-            $table->string('postcode')->nullable();
+            $table->string('age_range')->nullable();
             $table->string('enduserid')->nullable();
             $table->string('sessid')->nullable();
             $table->timestamps();
